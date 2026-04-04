@@ -265,6 +265,7 @@
 
 ### Добавление карты лояльности
 <img width="486" height="1020" alt="Добавление карты лояльности" src="https://github.com/user-attachments/assets/30eee706-45ed-4dcc-a666-050e2c20fdb6" />
+<img width="486" height="1020" alt="Добавление карты лояльности" src="https://github.com/user-attachments/assets/9f1e9707-50af-4079-a286-3f6276f023de" />
 
 ### Калькулятор КБЖУ
 <img width="469" height="926" alt="Калькулятор КБЖУ" src="https://github.com/user-attachments/assets/0ca88081-e728-456a-8b6b-f942633547ab" />
