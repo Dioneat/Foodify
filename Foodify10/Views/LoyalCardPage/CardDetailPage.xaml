@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.CardDetailPage"
+             x:DataType="viewmodels:CardDetailPageViewModel"
+             BackgroundColor="White">
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+
+        <Label Text="{Binding CardName}"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="Black"
+               HorizontalOptions="Center"/>
+
+        <Label Text="{Binding CardNumber}"
+               FontSize="16"
+               TextColor="#7F8C8D"
+               HorizontalOptions="Center"
+               Margin="0,0,0,20"/>
+
+        <Grid IsVisible="{Binding IsGeneratedCodeVisible}"
+              RowDefinitions="Auto,*">
+
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="*,*"
+                  Margin="0,0,0,20"
+                  Padding="5"
+                  BackgroundColor="#F5F5F5"
+                  ColumnSpacing="5">
+
+                <Button Grid.Column="0"
+                        Text="Штрих-код"
+                        Command="{Binding ShowBarcodeTabCommand}"
+                        BackgroundColor="{Binding BarcodeButtonBackground}"
+                        TextColor="{Binding BarcodeButtonTextColor}"
+                        CornerRadius="5"
+                        Padding="10"
+                        FontSize="14"/>
+
+                <Button Grid.Column="1"
+                        Text="QR-код"
+                        Command="{Binding ShowQrTabCommand}"
+                        BackgroundColor="{Binding QrButtonBackground}"
+                        TextColor="{Binding QrButtonTextColor}"
+                        CornerRadius="5"
+                        Padding="10"
+                        FontSize="14"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <VerticalStackLayout Spacing="10" IsVisible="{Binding IsBarcodeVisible}">
+                    <zxing:BarcodeGeneratorView HeightRequest="180"
+                                                WidthRequest="300"
+                                                HorizontalOptions="Center"
+                                                Format="Code128"
+                                                Value="{Binding BarcodeValue}" />
+                    <Label Text="Сканируйте штрих-код на кассе"
+                           HorizontalOptions="Center"
+                           TextColor="#7F8C8D"
+                           FontSize="12"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="10" IsVisible="{Binding IsQrVisible}">
+                    <zxing:BarcodeGeneratorView HeightRequest="250"
+                                                WidthRequest="250"
+                                                HorizontalOptions="Center"
+                                                Format="QrCode"
+                                                Value="{Binding QrCodeValue}" />
+                    <Label Text="Сканируйте QR-код на кассе"
+                           HorizontalOptions="Center"
+                           TextColor="#7F8C8D"
+                           FontSize="12"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+
+        <Border IsVisible="{Binding IsPhotoVisible}"
+                Padding="0"
+                Stroke="#F0F0F0"
+                StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <Image Source="{Binding CardImageSource}"
+                   Aspect="AspectFit"
+                   HeightRequest="250">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenPhotoCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             xmlns:models="clr-namespace:Foodify10.Models"
+             x:Class="Foodify10.ComparisonDetailsPage"
+             x:DataType="viewmodels:ComparisonDetailsPageViewModel"
+             BackgroundColor="#FAFAFA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Border Stroke="#E8ECEF"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    Padding="18">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="8">
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Border StrokeThickness="0"
+                                BackgroundColor="#EAF7EF"
+                                WidthRequest="44"
+                                HeightRequest="44">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+
+                            <Label Text="⚖️"
+                                   FontSize="22"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding Title}"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="#1F2937" />
+                            <Label Text="{Binding ProductCount, StringFormat='В сравнении: {0} продукта(ов)'}"
+                                   FontSize="13"
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <Label Text="Лучшие показатели в строке подсвечены светло-зелёным."
+                           FontSize="12"
+                           TextColor="#6B7280" />
+                </VerticalStackLayout>
+            </Border>
+
+            <ScrollView Orientation="Horizontal">
+                <VerticalStackLayout Spacing="12">
+
+                    <CollectionView ItemsSource="{Binding Rows}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ComparisonRowModel">
+                                <Border Stroke="#E8ECEF"
+                                        StrokeThickness="1"
+                                        BackgroundColor="White"
+                                        Padding="12">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#111827" />
+
+                                        <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Cells}"
+                                                               Spacing="10">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="models:ComparisonCellModel">
+                                                    <Border Stroke="#E5E7EB"
+                StrokeThickness="1"
+                BackgroundColor="{Binding BackgroundColor}"
+                Padding="10"
+                WidthRequest="{Binding CellWidth}">
+                                                        <Border.StrokeShape>
+                                                            <RoundRectangle CornerRadius="14" />
+                                                        </Border.StrokeShape>
+
+                                                        <VerticalStackLayout Spacing="4"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+
+                                                            <Label Text="{Binding MainText}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="Black"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       MaxLines="3"
+                       LineBreakMode="TailTruncation" />
+
+                                                            <Label Text="{Binding DiffText}"
+                       IsVisible="{Binding DiffText, Converter={StaticResource StringNotEmptyConverter}}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="11"
+                       TextColor="{Binding DiffTextColor}" />
+                                                        </VerticalStackLayout>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <Border Stroke="#F3F4F6"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    Padding="14">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <Label Text="Подсказка: отрицательный процент означает, что показатель ниже, чем у первого продукта в списке."
+                       FontSize="12"
+                       TextColor="Gray"
+                       HorizontalTextAlignment="Center" />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.AddCardPage"
+             x:DataType="viewmodels:AddCardPageViewModel"
+             Title="Добавить карту"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Entry Text="{Binding CardName}"
+                   Placeholder="Название карты (напр. Пятерочка)"
+                   TextColor="Black"
+                   PlaceholderColor="#7F8C8D"/>
+            <Label Text="Цвет карты"
+       TextColor="Black"
+       FontAttributes="Bold"
+       Margin="0,10,0,0"/>
+
+            <CollectionView ItemsSource="{Binding AvailableColors}"
+                SelectedItem="{Binding SelectedCardColor, Mode=TwoWay}"
+                SelectionMode="Single"
+                HeightRequest="70">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border Stroke="#DCDCDC"
+                    StrokeThickness="1"
+                    BackgroundColor="{Binding .}"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Border BackgroundColor="{Binding SelectedCardColor}"
+        Stroke="#F0F0F0"
+        StrokeThickness="1"
+        Padding="16"
+        Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <Grid ColumnDefinitions="Auto,*">
+                    <Label Text="💳"
+               FontSize="24"
+               VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0">
+                        <Label Text="{Binding CardName, TargetNullValue=Новая карта}"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   FontSize="16"/>
+                        <Label Text="{Binding CardNumber, TargetNullValue=0000 0000}"
+                   TextColor="#7F8C8D"
+                   FontSize="12"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+            <Label Text="Номер карты"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0"/>
+
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Entry Grid.Column="0"
+                       Text="{Binding CardNumber}"
+                       Placeholder="Введите номер или отсканируйте"
+                       Keyboard="Numeric"
+                       TextColor="Black"
+                       IsVisible="{Binding IsNumberEntryVisible}"/>
+
+                <Button Grid.Column="1"
+                        Text="📷"
+                        BackgroundColor="#27AE60"
+                        TextColor="White"
+                        WidthRequest="50"
+                        Command="{Binding ScanBarcodeCommand}" />
+            </Grid>
+
+            <Label Text="ИЛИ СФОТОГРАФИРУЙТЕ КАРТУ ЦЕЛИКОМ"
+                   HorizontalOptions="Center"
+                   FontSize="10"
+                   TextColor="#7F8C8D"
+                   Margin="0,15,0,5"/>
+
+            <Button Text="Сфотографировать карту"
+                    BackgroundColor="White"
+                    TextColor="#27AE60"
+                    BorderColor="#27AE60"
+                    BorderWidth="1"
+                    Command="{Binding TakePhotoCommand}" />
+
+            <Border IsVisible="{Binding IsImagePreviewVisible}"
+                    Padding="0"
+                    HeightRequest="150"
+                    Stroke="#F0F0F0"
+                    StrokeThickness="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+                <Image Source="{Binding PreviewImageSource}"
+                       Aspect="AspectFit"/>
+            </Border>
+
+            <Button Text="Сохранить карту"
+                    BackgroundColor="#27AE60"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Margin="0,20,0,0"
+                    Command="{Binding SaveCardCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

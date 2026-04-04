@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+             x:Class="Foodify10.QuickScanPage"
+             Title="QuickScanPage">
+    <Grid>
+        <zxing:CameraBarcodeReaderView x:Name="BarcodeReader"
+                                       BarcodesDetected="OnBarcodesDetected" />
+        <Border Stroke="White" 
+                StrokeThickness="2" 
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                WidthRequest="250" 
+                HeightRequest="150" 
+                StrokeShape="RoundRectangle 10" 
+                InputTransparent="True" />
+
+        <Button Text="Отмена"
+                BackgroundColor="#80000000" 
+                TextColor="White"
+                CornerRadius="25"
+                HeightRequest="50"
+                WidthRequest="120"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Margin="0,0,0,50"
+                Clicked="OnCancelClicked" />
+    </Grid>
+</ContentPage>

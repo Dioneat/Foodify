@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Foodify10.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Foodify10" Shell.NavBarIsVisible="False">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#27AE60" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Black" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#27AE60"/>
+            </Style>
+            <Style TargetType="NavigationPage">
+                <Setter Property="Shell.BackgroundColor" Value="#27AE60" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.UnselectedColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <Tab Title="Главная" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="Сканер" Icon="scan.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ScanPage}" />
+        </Tab>
+        <Tab Title="Меню" Icon="menu.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MenuPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

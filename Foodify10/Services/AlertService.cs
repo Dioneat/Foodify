@@ -1,0 +1,12 @@
+﻿using Foodify10.Services.Interfaces;
+
+namespace Foodify10.Services
+{
+    public class AlertService : IAlertService
+    {
+        public Task ShowAlertAsync(string title, string message, string cancel)
+        {
+            return Shell.Current.DisplayAlertAsync(title, message, cancel);
+        }
+    }
+}

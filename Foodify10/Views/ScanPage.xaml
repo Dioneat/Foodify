@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.ScanPage"
+             x:DataType="viewmodels:ScanPageViewModel"
+             BackgroundColor="Black">
+
+    <Grid>
+        <zxing:CameraBarcodeReaderView x:Name="barcodeReader"
+                                       BarcodesDetected="OnBarcodesDetected" />
+
+        <BoxView BackgroundColor="#80000000"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill" />
+
+        <Button Text="🔦"
+                Command="{Binding ToggleTorchCommand}"
+                FontSize="24"
+                BackgroundColor="{Binding TorchButtonBackgroundColor}"
+                TextColor="White"
+                HeightRequest="60"
+                WidthRequest="60"
+                CornerRadius="30"
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                Margin="20" />
+
+        <VerticalStackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="20">
+            <Border Stroke="#27AE60"
+                    StrokeThickness="2"
+                    BackgroundColor="Transparent"
+                    HeightRequest="200"
+                    WidthRequest="250">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+            </Border>
+
+            <Label Text="Поместите код в рамку"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <Border VerticalOptions="End"
+                Margin="20,40"
+                Padding="15"
+                BackgroundColor="White"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout Spacing="10">
+                <Entry Text="{Binding ManualBarcode}"
+                       TextColor="Black"
+                       Placeholder="Ввести код вручную"
+                       WidthRequest="200"
+                       Keyboard="Numeric" />
+
+                <Button Text="OK"
+                        Command="{Binding SubmitManualBarcodeCommand}"
+                        BackgroundColor="#27AE60"
+                        TextColor="White"/>
+            </HorizontalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

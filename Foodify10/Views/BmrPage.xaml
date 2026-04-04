@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.BmrPage"
+             x:DataType="viewmodels:BmrPageViewModel"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <Label Text="Ваши параметры"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Мужчина"
+                        WidthRequest="120"
+                        BackgroundColor="{Binding MaleBackground}"
+                        TextColor="{Binding MaleTextColor}"
+                        Command="{Binding SetMaleCommand}" />
+
+                <Button Text="Женщина"
+                        WidthRequest="120"
+                        BackgroundColor="{Binding FemaleBackground}"
+                        TextColor="{Binding FemaleTextColor}"
+                        Command="{Binding SetFemaleCommand}" />
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           Text="Рост"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label x:Name="LblHeight"
+                               Text="{Binding HeightText}"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" CommandParameter="Height" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Entry x:Name="EditHeight"
+                               IsVisible="False"
+                               WidthRequest="60"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="End"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               Unfocused="OnEntryUnfocused"
+                               Completed="OnEntryCompleted" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <Slider Minimum="100"
+                        Maximum="250"
+                        Value="{Binding Height, Mode=TwoWay}"
+                        ThumbColor="#27AE60"
+                        MinimumTrackColor="#27AE60"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           Text="Вес"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label x:Name="LblWeight"
+                               Text="{Binding WeightText}"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" CommandParameter="Weight" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Entry x:Name="EditWeight"
+                               IsVisible="False"
+                               WidthRequest="60"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="End"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               Unfocused="OnEntryUnfocused"
+                               Completed="OnEntryCompleted" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <Slider Minimum="30"
+                        Maximum="200"
+                        Value="{Binding Weight, Mode=TwoWay}"
+                        ThumbColor="#27AE60"
+                        MinimumTrackColor="#27AE60"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           Text="Возраст"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label x:Name="LblAge"
+                               Text="{Binding AgeText}"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" CommandParameter="Age" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Entry x:Name="EditAge"
+                               IsVisible="False"
+                               WidthRequest="60"
+                               Keyboard="Numeric"
+                               HorizontalTextAlignment="End"
+                               TextColor="#27AE60"
+                               FontAttributes="Bold"
+                               Unfocused="OnEntryUnfocused"
+                               Completed="OnEntryCompleted" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <Slider Minimum="14"
+                        Maximum="100"
+                        Value="{Binding Age, Mode=TwoWay}"
+                        ThumbColor="#27AE60"
+                        MinimumTrackColor="#27AE60"/>
+            </VerticalStackLayout>
+
+            <Label Text="Ваша цель"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0"/>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                <Button Grid.Column="0"
+                        Text="Сброс"
+                        FontSize="12"
+                        BackgroundColor="{Binding LoseBackground}"
+                        TextColor="{Binding LoseTextColor}"
+                        Command="{Binding SetGoalCommand}"
+                        CommandParameter="Сброс"/>
+
+                <Button Grid.Column="1"
+                        Text="Баланс"
+                        FontSize="12"
+                        BackgroundColor="{Binding KeepBackground}"
+                        TextColor="{Binding KeepTextColor}"
+                        Command="{Binding SetGoalCommand}"
+                        CommandParameter="Баланс"/>
+
+                <Button Grid.Column="2"
+                        Text="Набор"
+                        FontSize="12"
+                        BackgroundColor="{Binding GainBackground}"
+                        TextColor="{Binding GainTextColor}"
+                        Command="{Binding SetGoalCommand}"
+                        CommandParameter="Набор"/>
+            </Grid>
+
+            <Label Text="Уровень активности"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0"/>
+
+            <Picker Title="Выберите активность"
+                    TextColor="Black"
+                    ItemsSource="{Binding ActivityOptions}"
+                    SelectedIndex="{Binding SelectedActivityIndex, Mode=TwoWay}" />
+
+            <Border BackgroundColor="#F9F9F9"
+                    Stroke="#F0F0F0"
+                    StrokeThickness="1"
+                    Margin="0,20"
+                    Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <Label Text="Ваша дневная норма"
+                           TextColor="#7F8C8D"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="{Binding TotalCaloriesText}"
+                           FontSize="36"
+                           FontAttributes="Bold"
+                           TextColor="#27AE60"
+                           HorizontalOptions="Center"/>
+
+                    <BoxView HeightRequest="1" Color="#E0E0E0" Margin="0,5"/>
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Белки"
+                                   HorizontalOptions="Center"
+                                   FontSize="12"
+                                   TextColor="Black"/>
+                            <Label Text="{Binding ProteinsText}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Жиры"
+                                   HorizontalOptions="Center"
+                                   FontSize="12"
+                                   TextColor="Black"/>
+                            <Label Text="{Binding FatsText}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="2">
+                            <Label Text="Углеводы"
+                                   HorizontalOptions="Center"
+                                   FontSize="12"
+                                   TextColor="Black"/>
+                            <Label Text="{Binding CarbsText}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

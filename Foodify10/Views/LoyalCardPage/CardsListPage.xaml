@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             xmlns:models="clr-namespace:Foodify10.Models"
+             x:Class="Foodify10.CardsListPage"
+             x:DataType="viewmodels:CardsListPageViewModel"
+             BackgroundColor="White">
+
+    <Grid>
+        <Grid RowDefinitions="Auto,*">
+
+            <Label Grid.Row="0"
+                   Text="Ваши карты лояльности"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Margin="20,15"/>
+
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Cards}"
+                            SelectedItem="{Binding SelectedCard, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            Margin="15,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:LoyaltyCard">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Удалить"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCardCommand}"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <ContentView Padding="0,0,0,10">
+                                    <Border Stroke="#F0F0F0"
+                                        StrokeThickness="1"
+                                        BackgroundColor="{Binding CardColor}"
+                                        Padding="15">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Label Grid.Column="0"
+                                               Text="💳"
+                                               FontSize="24"
+                                               VerticalOptions="Center"/>
+
+                                        <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0">
+                                            <Label Text="{Binding Name}"
+                                                   FontAttributes="Bold"
+                                                   TextColor="Black"
+                                                   FontSize="16"/>
+                                            <Label Text="{Binding CardNumber}"
+                                                   TextColor="#7F8C8D"
+                                                   FontSize="12"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </ContentView>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <Button Text="+"
+                FontSize="30"
+                TextColor="White"
+                FontAttributes="Bold"
+                BackgroundColor="#27AE60"
+                HeightRequest="60"
+                WidthRequest="60"
+                CornerRadius="30"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,0,20,30"
+                Command="{Binding AddCardCommand}">
+            <Button.Shadow>
+                <Shadow Brush="Black" Offset="0,10" Radius="10" Opacity="0.3"/>
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>

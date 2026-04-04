@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.Views.SettingsPage"
+             x:DataType="viewmodels:SettingsPageViewModel"
+             Title="Настройки"
+             BackgroundColor="#FAFAFA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Настройки"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Margin="0,0,0,8"/>
+
+            <Border BackgroundColor="White"
+                    Stroke="#ECECEC"
+                    StrokeThickness="1"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Уведомления"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+
+                    <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Напоминания о покупках"
+                                   FontSize="15"
+                                   TextColor="Black"/>
+                            <Label Text="Разрешить локальные уведомления для списков"
+                                   FontSize="12"
+                                   TextColor="Gray"/>
+                        </VerticalStackLayout>
+
+                        <Switch Grid.Column="1"
+                                IsToggled="{Binding ShoppingRemindersEnabled}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    Stroke="#ECECEC"
+                    StrokeThickness="1"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Сканер"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Вибрация при сканировании"
+                                   FontSize="15"
+                                   TextColor="Black"/>
+                            <Label Text="Короткий отклик после успешного считывания"
+                                   FontSize="12"
+                                   TextColor="Gray"/>
+                        </VerticalStackLayout>
+
+                        <Switch Grid.Column="1"
+                                IsToggled="{Binding ScanVibrationEnabled}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Запоминать фонарик"
+                                   FontSize="15"
+                                   TextColor="Black"/>
+                            <Label Text="Сохранять последнее состояние подсветки"
+                                   FontSize="12"
+                                   TextColor="Gray"/>
+                        </VerticalStackLayout>
+
+                        <Switch Grid.Column="1"
+                                IsToggled="{Binding RememberTorchState}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    Stroke="#ECECEC"
+                    StrokeThickness="1"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Списки покупок"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Автосохранение списков"
+                                   FontSize="15"
+                                   TextColor="Black"/>
+                            <Label Text="Сохранять изменения сразу после редактирования"
+                                   FontSize="12"
+                                   TextColor="Gray"/>
+                        </VerticalStackLayout>
+
+                        <Switch Grid.Column="1"
+                                IsToggled="{Binding ShoppingAutoSaveEnabled}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    Stroke="#ECECEC"
+                    StrokeThickness="1"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Данные"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+
+                    <Button Text="Очистить историю сканирований"
+                            Command="{Binding ClearHistoryCommand}"
+                            BackgroundColor="#FDF2F2"
+                            TextColor="#E74C3C"
+                            CornerRadius="12"
+                            FontAttributes="Bold"/>
+
+                    <Button Text="Очистить списки сравнений"
+                            Command="{Binding ClearComparisonsCommand}"
+                            BackgroundColor="#FDF2F2"
+                            TextColor="#E74C3C"
+                            CornerRadius="12"
+                            FontAttributes="Bold"/>
+
+                    <Button Text="Удалить все списки покупок"
+                            Command="{Binding ClearShoppingListsCommand}"
+                            BackgroundColor="#FDF2F2"
+                            TextColor="#E74C3C"
+                            CornerRadius="12"
+                            FontAttributes="Bold"/>
+
+                    <Button Text="Удалить все карты лояльности"
+                            Command="{Binding ClearCardsCommand}"
+                            BackgroundColor="#FDF2F2"
+                            TextColor="#E74C3C"
+                            CornerRadius="12"
+                            FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    Stroke="#ECECEC"
+                    StrokeThickness="1"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="О приложении"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+
+                    <Label Text="{Binding AppVersionText}"
+                           FontSize="14"
+                           TextColor="Black"/>
+
+                    <Label Text="Foodify — помощник для анализа продуктов, покупок и карт лояльности."
+                           FontSize="13"
+                           TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

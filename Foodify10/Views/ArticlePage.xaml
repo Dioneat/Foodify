@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.ArticlePage"
+             x:DataType="viewmodels:ArticlePageViewModel"
+             BackgroundColor="White"
+             Title="Статья">
+
+    <Grid>
+        <WebView IsVisible="{Binding IsContentVisible}">
+            <WebView.Source>
+                <HtmlWebViewSource Html="{Binding HtmlContent}" />
+            </WebView.Source>
+        </WebView>
+
+        <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="12">
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               Color="#27AE60"
+                               WidthRequest="48"
+                               HeightRequest="48" />
+            <Label Text="{Binding LoadingText}"
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

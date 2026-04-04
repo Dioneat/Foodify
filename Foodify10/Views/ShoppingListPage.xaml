@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             xmlns:models="clr-namespace:Foodify10.Models"
+             x:Class="Foodify10.Views.ShoppingListPage"
+             x:DataType="viewmodels:ShoppingListPageViewModel"
+             Title="Список покупок"
+             BackgroundColor="White">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,15">
+            <Entry Text="{Binding ListTitle}"
+                   Placeholder="Список покупок"
+                   FontSize="18"
+                   FontAttributes="Bold"/>
+
+            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                <Label Text="Напомнить:" VerticalOptions="Center"/>
+                <DatePicker Date="{Binding ReminderDate}" />
+                <TimePicker Time="{Binding ReminderTime}" />
+                <Button Text="🔔"
+                        Command="{Binding SetReminderCommand}"
+                        BackgroundColor="#F39C12"
+                        CornerRadius="8"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        Padding="0"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Сохранить список"
+                    Command="{Binding SaveListCommand}"
+                    BackgroundColor="#27AE60"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="50"/>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding ShoppingItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ShoppingItem">
+                    <Border Stroke="#E0E0E0"
+                            StrokeThickness="1"
+                            BackgroundColor="White"
+                            Padding="10"
+                            Margin="0,0,0,10">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+
+                        <HorizontalStackLayout Spacing="10">
+                            <CheckBox IsChecked="{Binding IsBought, Mode=TwoWay}"
+                                      Color="#27AE60"/>
+
+                            <Label Text="{Binding Name}"
+                                   VerticalOptions="Center"
+                                   FontSize="16">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsBought}" Value="True">
+                                        <Setter Property="TextDecorations" Value="Strikethrough" />
+                                        <Setter Property="TextColor" Value="Gray" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,Auto,Auto"
+              ColumnSpacing="10"
+              Margin="0,15,0,0">
+            <Entry Grid.Column="0"
+                   Text="{Binding NewItemText}"
+                   Placeholder="Что купить?"
+                   ReturnType="Done">
+                <Entry.Behaviors>
+
+                </Entry.Behaviors>
+            </Entry>
+
+            <Button Grid.Column="1"
+                    Text="🎤"
+                    BackgroundColor="{Binding VoiceButtonColor}"
+                    TextColor="White"
+                    CornerRadius="25"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Command="{Binding StartVoiceInputCommand}"/>
+
+            <Button Grid.Column="2"
+                    Text="+"
+                    BackgroundColor="#27AE60"
+                    TextColor="White"
+                    CornerRadius="25"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Command="{Binding AddItemCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
