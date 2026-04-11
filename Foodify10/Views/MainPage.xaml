@@ -7,7 +7,7 @@
              x:Class="Foodify10.MainPage"
              x:Name="PageRoot"
              x:DataType="viewmodels:MainPageViewModel"
-             BackgroundColor="#F8F9FA">
+             BackgroundColor="#F4F6F8">
 
     <ContentPage.Resources>
         <Style x:Key="SkeletonBox" TargetType="BoxView">
@@ -16,96 +16,109 @@
         </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,*">
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" Spacing="25">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,20,20,40" Spacing="25">
 
-                <Label Text="Недавние сканирования"
-                       FontAttributes="Bold"
-                       FontSize="18"
-                       TextColor="#2C3E50"
-                       Margin="20,20,20,10" />
+            <Label Text="Добро пожаловать! 👋"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#1C2833"/>
 
-                <Border BackgroundColor="#E8F8F5"
-                        Padding="15"
-                        Margin="20,10"
-                        StrokeThickness="0">
+            <Border BackgroundColor="White" Padding="5,0" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05"/>
+                </Border.Shadow>
+
+                <SearchBar Placeholder="Поиск продуктов, списков, статей..." 
+                           BackgroundColor="Transparent"
+                           CancelButtonColor="#7F8C8D"
+                           PlaceholderColor="#BDC3C7"
+                           TextColor="#2C3E50"/>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                <Border Grid.Column="0" BackgroundColor="#E8F8F5" Padding="15" StrokeThickness="0">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
-
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenShoppingListsCommand}" />
                     </Border.GestureRecognizers>
 
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Label Grid.Column="0"
-                               Text="🛒"
-                               FontSize="32"
-                               VerticalOptions="Center"
-                               Margin="0,0,15,0"/>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="Мои покупки"
-                                   FontAttributes="Bold"
-                                   FontSize="18"
-                                   TextColor="#27AE60"/>
-                            <Label Text="Нажмите, чтобы открыть списки"
-                                   FontSize="12"
-                                   TextColor="Gray"/>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🛒" FontSize="32"/>
+                        <Label Text="Списки" FontAttributes="Bold" FontSize="16" TextColor="#27AE60"/>
+                        <Label Text="Ваши корзины" FontSize="12" TextColor="#5D6D7E"/>
+                    </VerticalStackLayout>
                 </Border>
+
+                <Border Grid.Column="1" BackgroundColor="#FEF9E7" Padding="15" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Border.GestureRecognizers>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="⭐" FontSize="32"/>
+                        <Label Text="Избранное" FontAttributes="Bold" FontSize="16" TextColor="#F1C40F"/>
+                        <Label Text="Лучшие товары" FontSize="12" TextColor="#5D6D7E"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Text="История" FontAttributes="Bold" FontSize="18" TextColor="#2C3E50" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="Все" TextColor="#3498DB" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                </Grid>
 
                 <CollectionView ItemsSource="{Binding RecentScans}"
                                 SelectedItem="{Binding SelectedHistoryItem, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                Margin="20,0,20,0">
+                                SelectionMode="Single">
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="10">
+                            <Label Text="📝" FontSize="40" HorizontalOptions="Center"/>
+                            <Label Text="История пока пуста" TextColor="#7F8C8D" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:HistoryItem">
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="Удалить"
-                                                   BackgroundColor="Red"
+                                        <SwipeItem Text="Удалить" BackgroundColor="#E74C3C" 
                                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteHistoryItemCommand}"
                                                    CommandParameter="{Binding .}"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
 
                                 <ContentView Padding="0,0,0,10">
-                                    <Border BackgroundColor="#FAFAFA"
-                                            Padding="15"
-                                            Stroke="#E0E0E0"
-                                            StrokeThickness="1">
+                                    <Border BackgroundColor="White" Padding="15" StrokeThickness="0">
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="12" />
                                         </Border.StrokeShape>
+                                        <Border.Shadow>
+                                            <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05"/>
+                                        </Border.Shadow>
 
                                         <Grid ColumnDefinitions="*,Auto">
-                                            <VerticalStackLayout Grid.Column="0" Spacing="4">
-                                                <Label Text="{Binding Name}"
-                                                       FontAttributes="Bold"
-                                                       FontSize="16"
-                                                       TextColor="#2C3E50"
-                                                       LineBreakMode="TailTruncation"/>
-                                                <Label Text="{Binding ScanTime}"
-                                                       FontSize="12"
-                                                       TextColor="#7F8C8D"/>
+                                            <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50" LineBreakMode="TailTruncation"/>
+                                                <Label Text="{Binding ScanTime}" FontSize="12" TextColor="#7F8C8D"/>
                                             </VerticalStackLayout>
 
-                                            <Border Grid.Column="1"
-                                                    BackgroundColor="{Binding StatusColor}"
-                                                    Padding="8,4"
-                                                    StrokeThickness="0"
-                                                    VerticalOptions="Center">
+                                            <Border Grid.Column="1" BackgroundColor="{Binding StatusColor}" Padding="10,5" StrokeThickness="0" VerticalOptions="Center">
                                                 <Border.StrokeShape>
                                                     <RoundRectangle CornerRadius="8" />
                                                 </Border.StrokeShape>
-
-                                                <Label Text="{Binding Status}"
-                                                       TextColor="White"
-                                                       FontSize="12"
-                                                       FontAttributes="Bold"/>
+                                                <Label Text="{Binding Status}" TextColor="White" FontSize="12" FontAttributes="Bold"/>
                                             </Border>
                                         </Grid>
                                     </Border>
@@ -114,119 +127,89 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-                <Label Text="Советы экспертов Роскачества"
-                       TextColor="Green"
-                       Style="{StaticResource Headline}"
-                       Margin="20,10" />
-
-                <Grid Margin="20,10">
-                    <CollectionView ItemsSource="{Binding Articles}"
-                                    SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
-                                    HeightRequest="220"
-                                    SelectionMode="Single"
-                                    IsVisible="{Binding IsArticlesVisible}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:RoskachestvoArticle">
-                                <Border WidthRequest="160"
-                                        Padding="0"
-                                        Margin="5"
-                                        BackgroundColor="White"
-                                        Stroke="#E0E0E0"
-                                        StrokeThickness="1">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="15" />
-                                    </Border.StrokeShape>
-
-                                    <Grid RowDefinitions="100,*">
-                                        <Image Source="{Binding Thumbnail}"
-                                               Aspect="AspectFill"
-                                               Grid.Row="0" />
-                                        <Label Text="{Binding Title}"
-                                               Grid.Row="1"
-                                               Padding="10"
-                                               FontSize="12"
-                                               FontAttributes="Bold"
-                                               TextColor="Black"
-                                               LineBreakMode="WordWrap"
-                                               MaxLines="3" />
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <HorizontalStackLayout x:Name="ArticlesSkeleton"
-                                           Spacing="10"
-                                           IsVisible="{Binding IsArticlesLoading}">
-                        <StackLayout WidthRequest="160">
-                            <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="100" />
-                            <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="20" Margin="0,5,0,0" WidthRequest="120" />
-                            <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="15" Margin="0,5,0,0" WidthRequest="80" />
-                        </StackLayout>
-                        <StackLayout WidthRequest="160">
-                            <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="100" />
-                            <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="20" Margin="0,5,0,0" WidthRequest="120" />
-                        </StackLayout>
-                    </HorizontalStackLayout>
-                </Grid>
-
-                <Label Text="Товары со знаком Роскачества"
-                       TextColor="Green"
-                       Style="{StaticResource Headline}"
-                       Margin="20,20,20,10" />
-
-                <Grid Margin="20,0">
-                    <CollectionView ItemsSource="{Binding QualityProducts}"
-                                    SelectedItem="{Binding SelectedQualityProduct, Mode=TwoWay}"
-                                    SelectionMode="Single"
-                                    Margin="20,0"
-                                    IsVisible="{Binding IsQualityProductsVisible}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="json:RskrfModels+QualityProduct">
-                                <Border Margin="0,0,0,10"
-                                        Padding="10"
-                                        BackgroundColor="White"
-                                        Stroke="#DAE1E7"
-                                        StrokeThickness="1">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12" />
-                                    </Border.StrokeShape>
-
-                                    <Grid ColumnDefinitions="40,*">
-                                        <Image Source="ros_quality.jpg"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               VerticalOptions="Center" />
-
-                                        <Label Grid.Column="1"
-                                               Text="{Binding Name}"
-                                               FontSize="14"
-                                               VerticalOptions="Center"
-                                               MaxLines="2"
-                                               TextColor="Black"
-                                               LineBreakMode="TailTruncation"
-                                               Margin="10,0,0,0" />
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <VerticalStackLayout x:Name="QualitySkeleton"
-                                         Spacing="10"
-                                         IsVisible="{Binding IsQualityProductsLoading}">
-                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="60" />
-                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="60" />
-                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="60" />
-                    </VerticalStackLayout>
-                </Grid>
-
             </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Советы экспертов" FontAttributes="Bold" FontSize="18" TextColor="#2C3E50" />
+
+                <HorizontalStackLayout x:Name="ArticlesSkeleton" Spacing="15" IsVisible="{Binding IsArticlesLoading}">
+                    <StackLayout WidthRequest="160">
+                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="120" />
+                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="16" Margin="0,8,0,0" WidthRequest="140" HorizontalOptions="Start"/>
+                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="16" Margin="0,4,0,0" WidthRequest="100" HorizontalOptions="Start"/>
+                    </StackLayout>
+                    <StackLayout WidthRequest="160">
+                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="120" />
+                        <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="16" Margin="0,8,0,0" WidthRequest="140" HorizontalOptions="Start"/>
+                    </StackLayout>
+                </HorizontalStackLayout>
+
+                <CollectionView ItemsSource="{Binding Articles}"
+                                SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
+                                HeightRequest="220"
+                                SelectionMode="Single"
+                                IsVisible="{Binding IsArticlesVisible}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:RoskachestvoArticle">
+                            <Border WidthRequest="160" BackgroundColor="White" StrokeThickness="0" Margin="0,0,0,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16" />
+                                </Border.StrokeShape>
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="0,4" Radius="6" Opacity="0.08"/>
+                                </Border.Shadow>
+
+                                <Grid RowDefinitions="120,*">
+                                    <Image Source="{Binding Thumbnail}" Aspect="AspectFill" Grid.Row="0" />
+                                    <Label Text="{Binding Title}" Grid.Row="1" Padding="12,10" FontSize="13" FontAttributes="Bold" TextColor="#2C3E50" LineBreakMode="WordWrap" MaxLines="3" VerticalOptions="Start" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Знак качества" FontAttributes="Bold" FontSize="18" TextColor="#2C3E50" />
+
+                <VerticalStackLayout x:Name="QualitySkeleton" Spacing="10" IsVisible="{Binding IsQualityProductsLoading}">
+                    <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="70" />
+                    <BoxView Style="{StaticResource SkeletonBox}" HeightRequest="70" />
+                </VerticalStackLayout>
+
+                <CollectionView ItemsSource="{Binding QualityProducts}"
+                                SelectedItem="{Binding SelectedQualityProduct, Mode=TwoWay}"
+                                SelectionMode="Single"
+                                IsVisible="{Binding IsQualityProductsVisible}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="json:RskrfModels+QualityProduct">
+                            <Border Margin="0,0,0,10" Padding="12" BackgroundColor="White" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="0,2" Radius="4" Opacity="0.05"/>
+                                </Border.Shadow>
+
+                                <Grid ColumnDefinitions="45,*,Auto">
+                                    <Frame Grid.Column="0" CornerRadius="8" HeightRequest="45" WidthRequest="45" Padding="0" IsClippedToBounds="True" BackgroundColor="#F8F9FA" BorderColor="Transparent">
+                                        <Image Source="ros_quality.jpg" Aspect="AspectFit" Margin="5"/>
+                                    </Frame>
+
+                                    <Label Grid.Column="1" Text="{Binding Name}" FontSize="14" FontAttributes="Italic" VerticalOptions="Center" MaxLines="2" TextColor="#2C3E50" Margin="12,0,0,0" LineBreakMode="TailTruncation" />
+
+                                    <Label Grid.Column="2" Text="❯" FontSize="16" TextColor="#BDC3C7" VerticalOptions="Center" FontAttributes="Bold"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

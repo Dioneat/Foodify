@@ -23,7 +23,11 @@ namespace Foodify10.Services
             var page = _serviceProvider.GetRequiredService<CardsListPage>();
             await Shell.Current.Navigation.PushAsync(page);
         }
-
+        public async Task OpenBmiCalculatorAsync()
+        {
+            var page = _serviceProvider.GetRequiredService<BmiCalculatorPage>();
+            await Shell.Current.Navigation.PushAsync(page);
+        }
         public async Task OpenShoppingListsAsync()
         {
             await Shell.Current.GoToAsync(nameof(ShoppingListsPage));

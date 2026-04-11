@@ -13,6 +13,10 @@ namespace Foodify10.ViewModels
 
         public ObservableCollection<ComparisonGroup> Groups { get; } = new();
 
+        // Свойство для контроля видимости кнопки "Очистить все"
+        [ObservableProperty]
+        private bool hasGroups;
+
         public ComparisonListPageViewModel(
             IComparisonNavigationService navigationService,
             IAlertService alertService)
@@ -29,6 +33,9 @@ namespace Foodify10.ViewModels
 
             foreach (var group in ComparisonManager.Groups)
                 Groups.Add(group);
+
+            // Обновляем флаг после загрузки данных
+            HasGroups = Groups.Any();
 
             return Task.CompletedTask;
         }
@@ -49,11 +56,15 @@ namespace Foodify10.ViewModels
         }
 
         [RelayCommand]
-        private Task ClearAllAsync()
+        private async Task ClearAllAsync()
         {
+            bool confirm = await _alertService.ShowConfirmationAsync("Очистка", "Вы уверены, что хотите удалить все списки сравнения?", "Да", "Отмена");
+
+            if (!confirm) return;
+
             ComparisonManager.Clear();
             Groups.Clear();
-            return Task.CompletedTask;
+            HasGroups = false; 
         }
     }
 }

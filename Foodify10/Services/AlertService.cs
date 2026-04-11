@@ -8,5 +8,14 @@ namespace Foodify10.Services
         {
             return Shell.Current.DisplayAlertAsync(title, message, cancel);
         }
+        public Task<bool> ShowConfirmationAsync(string title, string message, string accept, string cancel)
+        {
+            if (Application.Current?.MainPage != null)
+            {
+                return Shell.Current.DisplayAlertAsync(title, message, accept, cancel);
+            }
+
+            return Task.FromResult(false);
+        }
     }
 }

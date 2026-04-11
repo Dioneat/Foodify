@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
+             x:Class="Foodify10.Views.BmiCalculatorPage"
+             x:DataType="viewmodels:BmiCalculatorViewModel"
+             Title="Калькулятор ИМТ"
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Ваш индекс массы тела" FontSize="22" FontAttributes="Bold" TextColor="#1C2833"/>
+                <Label Text="Используйте ползунки или введите значения вручную." 
+                       FontSize="14" TextColor="#7F8C8D" LineBreakMode="WordWrap"/>
+            </VerticalStackLayout>
+
+            <Border BackgroundColor="White" Padding="20" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="25">
+
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="Рост" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50" VerticalOptions="Center"/>
+
+                            <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                <Border Stroke="#E1E9EE" StrokeThickness="1" BackgroundColor="#F8F9FA" Padding="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+                                    <Entry Text="{Binding HeightText}" 
+                                           Keyboard="Numeric" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18" 
+                                           TextColor="#27AE60"
+                                           HorizontalTextAlignment="Center"
+                                           WidthRequest="70"
+                                           HeightRequest="40"
+                                           BackgroundColor="Transparent"/>
+                                </Border>
+                                <Label Text="см" FontSize="14" TextColor="#7F8C8D" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <Slider Minimum="100" Maximum="250" Value="{Binding Height}" MinimumTrackColor="#27AE60" MaximumTrackColor="#E1E9EE" ThumbColor="#27AE60"/>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" BackgroundColor="#F4F6F8" Margin="0,-5"/>
+
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="Вес" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50" VerticalOptions="Center"/>
+
+                            <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                <Border Stroke="#E1E9EE" StrokeThickness="1" BackgroundColor="#F8F9FA" Padding="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+                                    <Entry Text="{Binding WeightText}" 
+                                           Keyboard="Numeric" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18" 
+                                           TextColor="#27AE60"
+                                           HorizontalTextAlignment="Center"
+                                           WidthRequest="70"
+                                           HeightRequest="40"
+                                           BackgroundColor="Transparent"/>
+                                </Border>
+                                <Label Text="кг" FontSize="14" TextColor="#7F8C8D" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <Slider Minimum="30" Maximum="200" Value="{Binding Weight}" MinimumTrackColor="#27AE60" MaximumTrackColor="#E1E9EE" ThumbColor="#27AE60"/>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White" Padding="25" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <Label Text="Результат" FontSize="14" TextColor="#7F8C8D" HorizontalOptions="Center"/>
+
+                    <Label Text="{Binding BmiScore, StringFormat='{0:F1}'}" 
+                           FontSize="56" FontAttributes="Bold" 
+                           TextColor="{Binding StatusColor}" 
+                           HorizontalOptions="Center"/>
+
+                    <Border BackgroundColor="{Binding StatusColor}" Padding="15,5" StrokeThickness="0" HorizontalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Label Text="{Binding BmiCategory}" TextColor="White" FontAttributes="Bold" FontSize="14"/>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*,*,*" HeightRequest="6" Margin="0,15" ColumnSpacing="2">
+                        <BoxView Grid.Column="0" BackgroundColor="#3498DB" CornerRadius="3,0,3,0"/>
+                        <BoxView Grid.Column="1" BackgroundColor="#27AE60" />
+                        <BoxView Grid.Column="2" BackgroundColor="#F39C12" />
+                        <BoxView Grid.Column="3" BackgroundColor="#E74C3C" CornerRadius="0,3,0,3"/>
+                    </Grid>
+
+                    <Label Text="{Binding BmiDescription}" 
+                           FontSize="14" TextColor="#5D6D7E" 
+                           HorizontalTextAlignment="Center" 
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="* Индекс массы тела является ориентировочным показателем и не заменяет профессиональную медицинскую консультацию."
+                   FontSize="11" TextColor="#BDC3C7" HorizontalTextAlignment="Center" Margin="0,10,0,0" LineBreakMode="WordWrap"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

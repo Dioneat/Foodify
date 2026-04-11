@@ -118,7 +118,7 @@ namespace Foodify10
 
             services.AddTransient<ComparisonListPageViewModel>();
             services.AddTransient<ComparisonDetailsPageViewModel>();
-
+            services.AddTransient<BmiCalculatorViewModel>();
             services.AddTransient<SettingsPageViewModel>();
 
         }
@@ -133,7 +133,7 @@ namespace Foodify10
             services.AddTransient<ArticlePage>();
 
             services.AddTransient<SettingsPage>();
-
+            services.AddTransient<BmiCalculatorPage>();
             services.AddTransient<ShoppingListPage>();
             services.AddTransient<ShoppingListsPage>();
 

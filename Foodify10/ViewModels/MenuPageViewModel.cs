@@ -30,6 +30,11 @@ namespace Foodify10.ViewModels
             await _navigationService.OpenSettingsAsync();
         }
         [RelayCommand]
+        private async Task OpenBmiCalculatorAsync()
+        {
+            await _navigationService.OpenBmiCalculatorAsync();
+        }
+        [RelayCommand]
         private async Task OpenShoppingListsAsync()
         {
             await _navigationService.OpenShoppingListsAsync();

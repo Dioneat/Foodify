@@ -6,6 +6,7 @@
         Task OpenDiscountCardsAsync();
         Task OpenShoppingListsAsync();
         Task OpenComparisonAsync();
+        Task OpenBmiCalculatorAsync();
         Task OpenSettingsAsync();
     }
 }
