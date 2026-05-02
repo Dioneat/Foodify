@@ -14,6 +14,7 @@ namespace Foodify10.ViewModels
         private readonly IProductPageStateFactory _stateFactory;
         private readonly IShareService _shareService;
         private readonly IComparisonFlowService _comparisonFlowService;
+        private readonly IProductJsonExportService _productJsonExportService;
 
         private ProductData? _currentProduct;
         private string? _lastLoadedBarcode;
@@ -119,13 +120,15 @@ namespace Foodify10.ViewModels
             IHistoryService historyService,
             IProductPageStateFactory stateFactory,
             IShareService shareService,
-            IComparisonFlowService comparisonFlowService)
+            IComparisonFlowService comparisonFlowService,
+            IProductJsonExportService productJsonExportService)
         {
             _flowService = flowService;
             _historyService = historyService;
             _stateFactory = stateFactory;
             _shareService = shareService;
             _comparisonFlowService = comparisonFlowService;
+            _productJsonExportService = productJsonExportService;
         }
 
         partial void OnIsLoadingChanged(bool value) => OnPropertyChanged(nameof(IsContentVisible));
@@ -223,6 +226,58 @@ namespace Foodify10.ViewModels
             {
                 await _shareService.ShareTextAsync("Анализ продукта", text);
             }
+        }
+
+        [RelayCommand]
+        private async Task ExportJsonAsync()
+        {
+            if (_currentProduct == null)
+            {
+                await Shell.Current.DisplayAlertAsync("Ошибка", "Нет данных для выгрузки.", "OK");
+                return;
+            }
+
+            var exportModel = new ProductExportJsonModel
+            {
+                ExportedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                Barcode = _currentProduct.Barcode,
+                Title = Title,
+                Composition = Composition,
+                AnalysisText = AnalysisText,
+                Nutrition = new NutritionExportJsonModel
+                {
+                    Calories = Calories,
+                    Proteins = Proteins,
+                    Fats = Fats,
+                    Carbohydrates = Carbs
+                },
+                Scores = new ScoresExportJsonModel
+                {
+                    NutriScore = NutriScore,
+                    NutriExplanation = NutriExplanation,
+                    NovaScore = NovaScore,
+                    NovaTitle = NovaTitle,
+                    NovaExplanation = NovaExplanation,
+                    TrafficExplanation = TrafficExplanation
+                },
+                Research = new ResearchExportJsonModel
+                {
+                    SourceTitle = ResearchSourceTitle,
+                    HasQualityMark = HasQualityMark,
+                    WorthItems = WorthItems.ToList(),
+                    CriteriaRatings = CriteriaRatings
+                        .Select(x => new ResearchCriterionExportJsonModel
+                        {
+                            Title = x.Title,
+                            Value = x.Value
+                        })
+                        .ToList()
+                }
+            };
+
+            await _productJsonExportService.ExportAndShareAsync(
+                exportModel,
+                $"{Title}_{_currentProduct.Barcode}");
         }
 
         [RelayCommand]

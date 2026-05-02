@@ -4,374 +4,280 @@
              xmlns:viewmodels="clr-namespace:Foodify10.ViewModels"
              xmlns:json="clr-namespace:Foodify10.Models.JsonModels"
              x:Class="Foodify10.ProductPage"
-             x:DataType="viewmodels:ProductPageViewModel">
-
-    <Grid BackgroundColor="White">
-
+             x:DataType="viewmodels:ProductPageViewModel"
+             BackgroundColor="#F4F6F8">
+    <Grid>
         <ScrollView IsVisible="{Binding IsContentVisible}">
             <VerticalStackLayout Padding="20" Spacing="15">
 
                 <VerticalStackLayout Spacing="5">
                     <Label Text="{Binding Title}"
-                           FontSize="26"
+                           FontSize="24"
                            FontAttributes="Bold"
-                           TextColor="Green"/>
+                           TextColor="#1C2833"
+                           LineBreakMode="WordWrap"/>
                 </VerticalStackLayout>
 
-                <Border Stroke="#E0E0E0"
-                        StrokeThickness="1"
-                        BackgroundColor="#FFFFFF"
-                        Padding="15"
-                        Margin="0,10,0,10">
+                <Border StrokeThickness="0" BackgroundColor="White" Padding="20" Margin="0,5,0,5">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05" />
+                    </Border.Shadow>
 
                     <VerticalStackLayout Spacing="15">
-                        <Label Text="Калории на 100г:"
-                               FontAttributes="Bold"
-                               FontSize="16"
-                               TextColor="#2C3E50"/>
+                        <Label Text="Пищевая ценность (на 100г)" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50"/>
 
                         <Grid ColumnDefinitions="*,*,*,*">
-                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="5">
-                                <Label Text="Ккал" FontSize="14" TextColor="#7F8C8D" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Calories}" FontSize="18" FontAttributes="Bold" TextColor="#E74C3C" HorizontalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Calories}" FontSize="20" FontAttributes="Bold" TextColor="#E74C3C" HorizontalOptions="Center"/>
+                                <Label Text="Ккал" FontSize="12" TextColor="#7F8C8D" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
-                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="5">
-                                <Label Text="Б" FontSize="14" TextColor="#7F8C8D" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Proteins}" FontSize="18" FontAttributes="Bold" TextColor="#2980B9" HorizontalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Proteins}" FontSize="20" FontAttributes="Bold" TextColor="#2980B9" HorizontalOptions="Center"/>
+                                <Label Text="Белки" FontSize="12" TextColor="#7F8C8D" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
-                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="5">
-                                <Label Text="Ж" FontSize="14" TextColor="#7F8C8D" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Fats}" FontSize="18" FontAttributes="Bold" TextColor="#F39C12" HorizontalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Fats}" FontSize="20" FontAttributes="Bold" TextColor="#F39C12" HorizontalOptions="Center"/>
+                                <Label Text="Жиры" FontSize="12" TextColor="#7F8C8D" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
 
-                            <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="5">
-                                <Label Text="У" FontSize="14" TextColor="#7F8C8D" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Carbs}" FontSize="18" FontAttributes="Bold" TextColor="#27AE60" HorizontalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Carbs}" FontSize="20" FontAttributes="Bold" TextColor="#27AE60" HorizontalOptions="Center"/>
+                                <Label Text="Углев." FontSize="12" TextColor="#7F8C8D" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Stroke="#F0F0F0"
-                        StrokeThickness="1"
-                        BackgroundColor="#FAFAFA"
-                        Padding="15"
-                        Margin="0,10,0,10">
+                <Border StrokeThickness="0" BackgroundColor="White" Padding="15">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05" />
+                    </Border.Shadow>
 
-                    <VerticalStackLayout Spacing="15">
-                        <Label Text="Анализ и оценки" FontAttributes="Bold" FontSize="16" />
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Анализ и оценки" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50" Margin="5,0,0,5"/>
 
-                        <Border Stroke="#E0E0E0" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                        <Border Stroke="#F0F3F4" StrokeThickness="1" BackgroundColor="#FAFCFC" Padding="12">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
+                                <RoundRectangle CornerRadius="12" />
                             </Border.StrokeShape>
-
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToggleNutriCommand}" />
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout>
                                 <Grid ColumnDefinitions="Auto,*,Auto">
-                                    <Border Grid.Column="0"
-                                            BackgroundColor="{Binding NutriScoreBadgeColor}"
-                                            Padding="8,4"
-                                            StrokeThickness="0">
+                                    <Border Grid.Column="0" BackgroundColor="{Binding NutriScoreBadgeColor}" Padding="10,4" StrokeThickness="0">
                                         <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="5" />
+                                            <RoundRectangle CornerRadius="6" />
                                         </Border.StrokeShape>
-                                        <Label Text="{Binding NutriScore}" FontAttributes="Bold" TextColor="White"/>
+                                        <Label Text="{Binding NutriScore}" FontAttributes="Bold" TextColor="White" FontSize="14"/>
                                     </Border>
-
-                                    <Label Grid.Column="1"
-                                           Text="Nutri-Score"
-                                           TextColor="Green"
-                                           VerticalOptions="Center"
-                                           Margin="10,0,0,0"
-                                           FontAttributes="Bold"/>
-
-                                    <Label Grid.Column="2"
-                                           Text="{Binding NutriArrow}"
-                                           TextColor="Gray"
-                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="Nutri-Score" TextColor="#2C3E50" VerticalOptions="Center" Margin="12,0,0,0" FontAttributes="Bold"/>
+                                    <Label Grid.Column="2" Text="{Binding NutriArrow}" TextColor="#BDC3C7" VerticalOptions="Center" FontAttributes="Bold"/>
                                 </Grid>
-
-                                <Label Text="{Binding NutriExplanation}"
-                                       TextColor="Gray"
-                                       FontSize="12"
-                                       Margin="0,10,0,0"
-                                       IsVisible="{Binding IsNutriExpanded}"/>
+                                <Label Text="{Binding NutriExplanation}" TextColor="#7F8C8D" FontSize="13" Margin="0,10,0,0" IsVisible="{Binding IsNutriExpanded}" LineBreakMode="WordWrap"/>
                             </VerticalStackLayout>
                         </Border>
 
-                        <Border Stroke="#E0E0E0" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                        <Border Stroke="#F0F3F4" StrokeThickness="1" BackgroundColor="#FAFCFC" Padding="12">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
+                                <RoundRectangle CornerRadius="12" />
                             </Border.StrokeShape>
-
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToggleNovaCommand}" />
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout>
                                 <Grid ColumnDefinitions="Auto,*,Auto">
-                                    <Border Grid.Column="0"
-                                            BackgroundColor="{Binding NovaBadgeColor}"
-                                            Padding="8,4"
-                                            StrokeThickness="0">
+                                    <Border Grid.Column="0" BackgroundColor="{Binding NovaBadgeColor}" Padding="10,4" StrokeThickness="0">
                                         <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="5" />
+                                            <RoundRectangle CornerRadius="6" />
                                         </Border.StrokeShape>
-                                        <Label Text="{Binding NovaScore}" FontAttributes="Bold" TextColor="White"/>
+                                        <Label Text="{Binding NovaScore}" FontAttributes="Bold" TextColor="White" FontSize="14"/>
                                     </Border>
-
-                                    <Label Grid.Column="1"
-                                           Text="{Binding NovaTitle}"
-                                           TextColor="Green"
-                                           VerticalOptions="Center"
-                                           Margin="10,0,0,0"
-                                           FontAttributes="Bold"/>
-
-                                    <Label Grid.Column="2"
-                                           Text="{Binding NovaArrow}"
-                                           TextColor="Gray"
-                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding NovaTitle}" TextColor="#2C3E50" VerticalOptions="Center" Margin="12,0,0,0" FontAttributes="Bold"/>
+                                    <Label Grid.Column="2" Text="{Binding NovaArrow}" TextColor="#BDC3C7" VerticalOptions="Center" FontAttributes="Bold"/>
                                 </Grid>
-
-                                <Label Text="{Binding NovaExplanation}"
-                                       TextColor="Gray"
-                                       FontSize="12"
-                                       Margin="0,10,0,0"
-                                       IsVisible="{Binding IsNovaExpanded}"/>
+                                <Label Text="{Binding NovaExplanation}" TextColor="#7F8C8D" FontSize="13" Margin="0,10,0,0" IsVisible="{Binding IsNovaExpanded}" LineBreakMode="WordWrap"/>
                             </VerticalStackLayout>
                         </Border>
 
-                        <Border Stroke="#E0E0E0" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                        <Border Stroke="#F0F3F4" StrokeThickness="1" BackgroundColor="#FAFCFC" Padding="12">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
+                                <RoundRectangle CornerRadius="12" />
                             </Border.StrokeShape>
-
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToggleTrafficCommand}" />
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout>
                                 <Grid ColumnDefinitions="*,Auto">
-                                    <Label Grid.Column="0"
-                                           Text="Светофор (на 100г)"
-                                           VerticalOptions="Center"
-                                           TextColor="Green"
-                                           FontAttributes="Bold"/>
-                                    <Label Grid.Column="1"
-                                           Text="{Binding TrafficArrow}"
-                                           TextColor="Gray"
-                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="0" Text="Светофор пищевой ценности" VerticalOptions="Center" TextColor="#2C3E50" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Text="{Binding TrafficArrow}" TextColor="#BDC3C7" VerticalOptions="Center" FontAttributes="Bold"/>
                                 </Grid>
 
-                                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5" Margin="0,10,0,0">
-                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                                        <Label Text="Жиры" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
-                                        <BoxView Color="{Binding TrafficFatColor}" WidthRequest="15" HeightRequest="15" CornerRadius="7.5" Margin="0,5,0,0"/>
+                                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5" Margin="0,12,0,0">
+                                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="Жиры" FontSize="11" TextColor="#7F8C8D" HorizontalOptions="Center"/>
+                                        <BoxView Color="{Binding TrafficFatColor}" WidthRequest="20" HeightRequest="8" CornerRadius="4"/>
                                     </VerticalStackLayout>
-
-                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                                        <Label Text="Сахар" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
-                                        <BoxView Color="{Binding TrafficSugarColor}" WidthRequest="15" HeightRequest="15" CornerRadius="7.5" Margin="0,5,0,0"/>
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="Сахар" FontSize="11" TextColor="#7F8C8D" HorizontalOptions="Center"/>
+                                        <BoxView Color="{Binding TrafficSugarColor}" WidthRequest="20" HeightRequest="8" CornerRadius="4"/>
                                     </VerticalStackLayout>
-
-                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
-                                        <Label Text="Соль" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
-                                        <BoxView Color="{Binding TrafficSaltColor}" WidthRequest="15" HeightRequest="15" CornerRadius="7.5" Margin="0,5,0,0"/>
+                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="Соль" FontSize="11" TextColor="#7F8C8D" HorizontalOptions="Center"/>
+                                        <BoxView Color="{Binding TrafficSaltColor}" WidthRequest="20" HeightRequest="8" CornerRadius="4"/>
                                     </VerticalStackLayout>
                                 </Grid>
 
-                                <Label Text="{Binding TrafficExplanation}"
-                                       TextColor="Gray"
-                                       FontSize="12"
-                                       Margin="0,10,0,0"
-                                       IsVisible="{Binding IsTrafficExpanded}"/>
+                                <Label Text="{Binding TrafficExplanation}" TextColor="#7F8C8D" FontSize="13" Margin="0,12,0,0" IsVisible="{Binding IsTrafficExpanded}" LineBreakMode="WordWrap"/>
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
                 </Border>
 
-                <Border IsVisible="{Binding IsResearchSectionVisible}"
-                        BackgroundColor="White"
-                        Stroke="#E0E0E0"
-                        StrokeThickness="1"
-                        Padding="15"
-                        Margin="0,0,0,10">
+                <Border IsVisible="{Binding IsResearchSectionVisible}" StrokeThickness="0" BackgroundColor="White" Padding="20">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05" />
+                    </Border.Shadow>
 
-                    <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="{Binding ResearchSourceTitle}" FontSize="18" FontAttributes="Bold" TextColor="#27AE60" />
 
-                        <Label Text="{Binding ResearchSourceTitle}"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="#27AE60" />
-
-                        <Border IsVisible="{Binding HasQualityMark}"
-                                BackgroundColor="#E8F8F5"
-                                StrokeThickness="0"
-                                Padding="10">
+                        <Border IsVisible="{Binding HasQualityMark}" BackgroundColor="#E8F8F5" StrokeThickness="0" Padding="12">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
-
-                            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                                <Image Source="ros_quality.jpg"
-                                       WidthRequest="22"
-                                       HeightRequest="22"
-                                       Aspect="AspectFit"
-                                       VerticalOptions="Center" />
-
-                                                            <Label Text="Товар имеет знак качества"
-                                       TextColor="#27AE60"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center" />
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image Source="ros_quality.jpg" WidthRequest="24" HeightRequest="24" Aspect="AspectFit" VerticalOptions="Center" />
+                                <Label Text="Знак качества подтвержден" TextColor="#27AE60" FontAttributes="Bold" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
 
-                        <VerticalStackLayout IsVisible="{Binding IsWorthVisible}" Spacing="8">
-                            <Label Text="Преимущества"
-                                   FontAttributes="Bold"
-                                   TextColor="Black" />
-
-                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding WorthItems}"
-                                                 Spacing="6">
+                        <VerticalStackLayout IsVisible="{Binding IsWorthVisible}" Spacing="10">
+                            <Label Text="Преимущества" FontAttributes="Bold" TextColor="#2C3E50" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding WorthItems}" Spacing="6">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="x:String">
-                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
-                                            <Label Text="•"
-                                                   TextColor="#27AE60"
-                                                   FontSize="16" />
-                                            <Label Grid.Column="1"
-                                                   Text="{Binding .}"
-                                                   TextColor="Black"
-                                                   FontSize="14"
-                                                   LineBreakMode="WordWrap" />
+                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                            <Label Text="✓" TextColor="#27AE60" FontSize="14" FontAttributes="Bold" VerticalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding .}" TextColor="#34495E" FontSize="13" LineBreakMode="WordWrap" />
                                         </Grid>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
                         </VerticalStackLayout>
 
-                        <VerticalStackLayout IsVisible="{Binding IsCriteriaVisible}" Spacing="8">
-                            <Label Text="Критерии оценки"
-                                   FontAttributes="Bold"
-                                   TextColor="Black" />
-
-                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding CriteriaRatings}"
-                                                 Spacing="8">
+                        <VerticalStackLayout IsVisible="{Binding IsCriteriaVisible}" Spacing="10">
+                            <Label Text="Оценки экспертов" FontAttributes="Bold" TextColor="#2C3E50" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding CriteriaRatings}" Spacing="8">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="json:ProductCriterionRatingData">
-                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                                            <Label Text="{Binding Title}"
-                                                   TextColor="Black"
-                                                   FontSize="14"
-                                                   LineBreakMode="WordWrap" />
-
-                                            <Border Grid.Column="1"
-                                                    BackgroundColor="#F0F9F4"
-                                                    StrokeThickness="0"
-                                                    Padding="8,4">
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10" VerticalOptions="Center">
+                                            <Label Text="{Binding Title}" TextColor="#34495E" FontSize="13" LineBreakMode="WordWrap" VerticalOptions="Center"/>
+                                            <Border Grid.Column="1" BackgroundColor="#F8F9FA" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
                                                 <Border.StrokeShape>
-                                                    <RoundRectangle CornerRadius="8" />
+                                                    <RoundRectangle CornerRadius="6" />
                                                 </Border.StrokeShape>
-
-                                                <Label Text="{Binding Value, StringFormat='{0:0.#}'}"
-                                                       TextColor="#27AE60"
-                                                       FontAttributes="Bold" />
+                                                <Label Text="{Binding Value, StringFormat='{0:0.#}'}" TextColor="#27AE60" FontAttributes="Bold" FontSize="13"/>
                                             </Border>
                                         </Grid>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
                         </VerticalStackLayout>
-
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Stroke="#E0E0E0"
-                        StrokeThickness="1"
-                        BackgroundColor="#FFFFFF">
+                <Border StrokeThickness="0" BackgroundColor="White" Padding="20" Margin="0,0,0,10">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
+                        <RoundRectangle CornerRadius="16" />
                     </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.05" />
+                    </Border.Shadow>
 
-                    <Label Text="{Binding Composition}"
-                           Padding="15"
-                           FontSize="15"
-                           LineHeight="1.4"
-                           TextColor="#34495E"/>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Состав продукта" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50"/>
+                        <Label Text="{Binding Composition}" FontSize="14" LineHeight="1.4" TextColor="#5D6D7E"/>
+
+                        <VerticalStackLayout IsVisible="{Binding IsAnalysisVisible}" Spacing="5" Margin="0,10,0,0">
+                            <Label Text="Анализ состава" TextColor="#27AE60" FontAttributes="Bold" FontSize="14"/>
+                            <Label Text="{Binding AnalysisText}" TextColor="#34495E" FontSize="13" LineHeight="1.3"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
                 </Border>
 
-                <Label Text="Анализ состава"
-                       TextColor="LightGreen"
-                       FontAttributes="Bold"
-                       FontSize="18"
-                       Margin="0,10,0,0"
-                       IsVisible="{Binding IsAnalysisVisible}"/>
+                <VerticalStackLayout Spacing="10" Margin="0,0,0,30">
 
-                <Border Padding="15"
-                        BackgroundColor="White"
-                        Stroke="#E0E0E0"
-                        StrokeThickness="1"
-                        IsVisible="{Binding IsAnalysisVisible}">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
-                    </Border.StrokeShape>
+                    <Button Text="⚖️ Добавить к сравнению"
+                            BackgroundColor="#27AE60"
+                            TextColor="White"
+                            HeightRequest="54"
+                            CornerRadius="14"
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            Command="{Binding AddToComparisonCommand}">
+                        <Button.Shadow>
+                            <Shadow Brush="#27AE60" Offset="0,4" Radius="8" Opacity="0.3" />
+                        </Button.Shadow>
+                    </Button>
 
-                    <Label Text="{Binding AnalysisText}"
-                           TextColor="Black"
-                           FontSize="14"/>
-                </Border>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
 
-                <Grid ColumnDefinitions="*,*"
-      ColumnSpacing="10"
-      Margin="0,10,0,0">
+                        <Button Grid.Column="0"
+                                Text="Поделиться"
+                                ImageSource="share_icon.png"
+                                ContentLayout="Left,8"
+                                BackgroundColor="#E8F8F5" 
+                                TextColor="#27AE60" 
+                                HeightRequest="48"
+                                CornerRadius="12"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Command="{Binding ShareCommand}" />
 
-                    <Button Grid.Column="0"
-            Text="Поделиться"
-            ImageSource="share_icon.png"
-            ContentLayout="Left,10"
-            BackgroundColor="#27AE60"
-            TextColor="White"
-            CornerRadius="10"
-            FontAttributes="Bold"
-            Command="{Binding ShareCommand}" />
+                        <Button Grid.Column="1"
+                                Text="Выгрузить в JSON"
+                                BackgroundColor="#E8F8F5"
+                                TextColor="#27AE60"
+                                HeightRequest="48"
+                                CornerRadius="12"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Command="{Binding ExportJsonCommand}" />
+                    </Grid>
+                </VerticalStackLayout>
 
-                    <Button Grid.Column="1"
-            Text="⚖️ В сравнение"
-            BackgroundColor="#27AE60"
-            TextColor="White"
-            CornerRadius="10"
-            FontAttributes="Bold"
-            Command="{Binding AddToComparisonCommand}" />
-                </Grid>
             </VerticalStackLayout>
         </ScrollView>
 
-        <VerticalStackLayout IsVisible="{Binding IsLoading}"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center"
-                             Spacing="15">
-            <ActivityIndicator IsRunning="{Binding IsLoading}"
-                               Color="#27AE60"
-                               WidthRequest="50"
-                               HeightRequest="50"/>
-            <Label Text="{Binding LoadingText}"
-                   TextColor="Gray"
-                   HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+        <Border IsVisible="{Binding IsLoading}" 
+                BackgroundColor="#80FFFFFF" 
+                StrokeThickness="0" 
+                HorizontalOptions="Fill" 
+                VerticalOptions="Fill">
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="15" BackgroundColor="White" Padding="30" >
+                <VerticalStackLayout.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.1"/>
+                </VerticalStackLayout.Shadow>
+
+                <ActivityIndicator IsRunning="{Binding IsLoading}" Color="#27AE60" WidthRequest="40" HeightRequest="40"/>
+                <Label Text="{Binding LoadingText}" TextColor="#2C3E50" FontAttributes="Bold" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Border>
+
     </Grid>
 </ContentPage>

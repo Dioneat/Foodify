@@ -88,6 +88,7 @@ namespace Foodify10
 
             // Comparison
             services.AddSingleton<IComparisonFlowService, ComparisonFlowService>();
+            services.AddSingleton<IProductJsonExportService, ProductJsonExportService>();
         }
 
         private static void RegisterNavigationServices(IServiceCollection services)
