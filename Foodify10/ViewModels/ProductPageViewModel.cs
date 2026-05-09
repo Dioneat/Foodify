@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Foodify10.Models;
 using Foodify10.Models.JsonModels;
+using Foodify10.Services;
 using Foodify10.Services.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -141,15 +142,20 @@ namespace Foodify10.ViewModels
             if (string.IsNullOrWhiteSpace(barcode))
                 return;
 
-            if (_lastLoadedBarcode == barcode && !string.IsNullOrWhiteSpace(Title))
+            string normalizedBarcode = BarcodeNormalizationService.NormalizeForProductSearch(barcode);
+
+            if (string.IsNullOrWhiteSpace(normalizedBarcode))
                 return;
 
-            _lastLoadedBarcode = barcode;
+            if (_lastLoadedBarcode == normalizedBarcode && !string.IsNullOrWhiteSpace(Title))
+                return;
+
+            _lastLoadedBarcode = normalizedBarcode;
             IsLoading = true;
 
             try
             {
-                var result = await _flowService.ProcessProductAsync(new ProductSearchRequest(barcode));
+                var result = await _flowService.ProcessProductAsync(new ProductSearchRequest(normalizedBarcode));
 
                 if (result?.Product != null)
                 {
@@ -162,7 +168,7 @@ namespace Foodify10.ViewModels
                     ApplyState(state);
                     ApplyResearchData(result.Product);
 
-                    var historyItem = _stateFactory.CreateHistoryItem(barcode, result.Product);
+                    var historyItem = _stateFactory.CreateHistoryItem(normalizedBarcode, result.Product);
                     await _historyService.AddToHistoryAsync(historyItem);
                 }
                 else
